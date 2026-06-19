@@ -1,0 +1,124 @@
+/// ⚠️  THIS IS A TEMPLATE — DO NOT add real credentials here.
+///
+/// Copy this file to `lib/main.dart` and fill in your actual values.
+/// `lib/main.dart` is in .gitignore and will never be committed.
+///
+/// How to get your credentials:
+/// • Supabase URL & Anon Key → https://supabase.com → Project → Settings → API
+/// • Gemini API Key          → https://aistudio.google.com/app/apikey
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'screens/auth/welcome_screen.dart';
+import 'screens/home/home_screen.dart';
+import 'theme/cozy_theme.dart';
+
+/// 🍪 Recipezz App Entry Point
+///
+/// Setup checklist before running:
+/// 1. Copy this file → lib/main.dart
+/// 2. Replace YOUR_SUPABASE_URL with your Supabase project URL
+/// 3. Replace YOUR_SUPABASE_ANON_KEY with your Supabase anon key
+/// 4. Add your Gemini API key in lib/utils/constants.dart
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 🔐 Initialize Supabase — fill in YOUR credentials in lib/main.dart
+  await Supabase.initialize(
+    url: 'YOUR_SUPABASE_URL',           // e.g. https://xyzcompany.supabase.co
+    anonKey: 'YOUR_SUPABASE_ANON_KEY',  // your project's anon/public key
+  );
+
+  runApp(
+    // 🔄 Wrap with ProviderScope to enable Riverpod throughout the app
+    const ProviderScope(
+      child: RecipezzApp(),
+    ),
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 🗺️ Router Configuration
+// ---------------------------------------------------------------------------
+
+final _router = GoRouter(
+  initialLocation: '/',
+  debugLogDiagnostics: true,
+  errorBuilder: (context, state) => _RouterErrorScreen(error: state.error),
+  routes: [
+    GoRoute(
+      path: '/',
+      name: 'welcome',
+      builder: (context, state) => const WelcomeScreen(),
+    ),
+    GoRoute(
+      path: '/home',
+      name: 'home',
+      builder: (context, state) => const HomeScreen(),
+    ),
+  ],
+);
+
+// ---------------------------------------------------------------------------
+// 📱 Root App Widget
+// ---------------------------------------------------------------------------
+
+class RecipezzApp extends StatelessWidget {
+  const RecipezzApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: 'Recipezz',
+      debugShowCheckedModeBanner: false,
+      theme: CozyTheme.light,
+      routerConfig: _router,
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// ❌ Router Error Screen (fallback)
+// ---------------------------------------------------------------------------
+
+class _RouterErrorScreen extends StatelessWidget {
+  final Exception? error;
+  const _RouterErrorScreen({this.error});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: CozyTheme.background,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('🍳', style: TextStyle(fontSize: 64)),
+              const SizedBox(height: 16),
+              Text(
+                'Oops! Something got burnt.',
+                style: Theme.of(context).textTheme.headlineMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                error?.toString() ?? 'Unknown route',
+                style: Theme.of(context).textTheme.bodySmall,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: () => context.go('/'),
+                child: const Text('Go back home 🏡'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,70 @@
+# ============================================================
+# 🔒 RECIPEZZ — .gitignore
+# ============================================================
+
+# ─── 🔐 SENSITIVE FILES (NEVER COMMIT) ───────────────────────
+# main.dart contains Supabase URL + Anon Key.
+# Use lib/main.dart.example as the safe reference template.
+lib/main.dart
+
+# Environment / secrets files
+.env
+.env.*
+*.env
+secrets.dart
+lib/secrets.dart
+lib/config/secrets.dart
+google-services.json
+GoogleService-Info.plist
+
+# ─── Flutter / Dart ─────────────────────────────────────────
+# Build outputs
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+
+# Generated files (Riverpod, etc.)
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+
+# pub cache / lock (keep pubspec.lock for reproducibility)
+# pubspec.lock  ← intentionally NOT ignored
+
+# ─── iOS ────────────────────────────────────────────────────
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/flutter_export_environment.sh
+ios/Flutter/Generated.xcconfig
+ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+
+# ─── Android ────────────────────────────────────────────────
+android/.gradle/
+android/captures/
+android/local.properties
+android/key.properties
+*.jks
+*.keystore
+
+# ─── macOS ──────────────────────────────────────────────────
+macos/Flutter/GeneratedPluginRegistrant.swift
+macos/Flutter/ephemeral/
+
+# ─── Web ────────────────────────────────────────────────────
+lib/generated_plugin_registrant.dart
+
+# ─── IDE / OS ───────────────────────────────────────────────
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ─── Logs & Crash reports ───────────────────────────────────
+*.log
+crash-*.txt
