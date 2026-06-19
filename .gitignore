@@ -16,6 +16,9 @@ lib/secrets.dart
 lib/config/secrets.dart
 google-services.json
 GoogleService-Info.plist
+android/key.properties
+*.jks
+*.keystore
 
 # ─── Flutter / Dart ─────────────────────────────────────────
 # Build outputs
@@ -24,14 +27,13 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
+.metadata
 
-# Generated files (Riverpod, etc.)
+# Generated files (Riverpod codegen, mocks, etc.)
 *.g.dart
 *.freezed.dart
 *.mocks.dart
-
-# pub cache / lock (keep pubspec.lock for reproducibility)
-# pubspec.lock  ← intentionally NOT ignored
+lib/generated_plugin_registrant.dart
 
 # ─── iOS ────────────────────────────────────────────────────
 ios/Pods/
@@ -44,21 +46,28 @@ ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
 android/.gradle/
 android/captures/
 android/local.properties
-android/key.properties
-*.jks
-*.keystore
+android/gradle.properties
 
 # ─── macOS ──────────────────────────────────────────────────
 macos/Flutter/GeneratedPluginRegistrant.swift
 macos/Flutter/ephemeral/
+macos/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
 
-# ─── Web ────────────────────────────────────────────────────
-lib/generated_plugin_registrant.dart
+# ─── Windows ────────────────────────────────────────────────
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugin_registrant.h
+windows/flutter/generated_plugins.cmake
+
+# ─── Linux ──────────────────────────────────────────────────
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/generated_plugin_registrant.h
+linux/flutter/generated_plugins.cmake
 
 # ─── IDE / OS ───────────────────────────────────────────────
 .idea/
 .vscode/
 *.iml
+*.iml.bak
 .DS_Store
 Thumbs.db
 *.swp
